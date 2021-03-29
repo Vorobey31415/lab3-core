@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.AbstractApplicationContext;
 
-
+@ImportResource("classpath:application-context.xml")
 public class RegistrationTest {
 
 	private AbstractApplicationContext context;
@@ -27,9 +27,9 @@ public class RegistrationTest {
 
 	@Test
 	public void testPersonRegistration() {
-		UsualPerson person = (UsualPerson) context.getBean("person");
+		UsualPerson person = context.getBean(UsualPerson.class);
 
-		RegistrationManager registrationManager = (RegistrationManager) context.getBean("registrationManager");
+		RegistrationManager registrationManager = context.getBean(RegistrationManager.class);
 
 		registrationManager.getApplicationContext().publishEvent(new PersonRegistrationEvent(person));
 		System.out.println("After registering:");
